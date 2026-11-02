@@ -1,19 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My First Site</title>
-  <style>
-    body { font-family: system-ui, sans-serif; max-width: 600px; margin: 4rem auto; padding: 0 1rem; line-height: 1.6; }
-    h1 { margin-bottom: 0; }
-    button { padding: .6rem 1.2rem; font-size: 1rem; cursor: pointer; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Noah Freelance Hub | Websites, FDA/FSVP compliance, company and VAT registration</title>
+<meta name="description" content="Freelance website design, WordPress, FDA registration and compliance, FSVP, company registration and VAT registration.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #eef2f6;
+    --ink: #10243e;
+    --muted: #4a5d75;
+    --line: #c9d4e0;
+    --accent: #0f766e;
+    --accent-ink: #ffffff;
+    --card: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0c1726;
+      --ink: #e8eef6;
+      --muted: #9fb1c6;
+      --line: #25384f;
+      --accent: #2dd4bf;
+      --accent-ink: #072a27;
+      --card: #12223a;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 1.25rem; }
+  header { padding: 1.25rem 0; border-bottom: 1px solid var(--line); }
+  header .wrap { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .brand { font-weight: 800; font-size: 1.1rem; letter-spacing: -0.01em; }
+  nav a { color: var(--muted); text-decoration: none; margin-left: 1.25rem; font-size: .95rem; }
+  nav a:hover { color: var(--ink); }
+  .hero { padding: 4.5rem 0 3.5rem; }
+  h1 {
+    font-size: clamp(2.2rem, 6.5vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+    margin: 0 0 1.25rem;
+    max-width: 16ch;
+  }
+  .lead { font-size: 1.15rem; color: var(--muted); max-width: 52ch; margin: 0 0 2rem; }
+  .btns { display: flex; gap: .75rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-block;
+    padding: .8rem 1.4rem;
+    border-radius: 6px;
+    font: inherit;
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid var(--accent);
+  }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); }
+  .btn.ghost { color: var(--ink); border-color: var(--line); }
+  .btn:hover { filter: brightness(1.08); }
+  a:focus-visible, .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  section { padding: 3rem 0; border-top: 1px solid var(--line); }
+  h2 { font-size: 1.7rem; letter-spacing: -0.02em; margin: 0 0 1.5rem; }
+  .services { list-style: none; margin: 0; padding: 0; }
+  .services > li {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 1rem 2rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .services > li:first-child { padding-top: 0; }
+  .services h3 { margin: 0; font-size: 1.15rem; }
+  .services p { margin: 0; color: var(--muted); }
+  .how { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; counter-reset: s; padding: 0; margin: 0; list-style: none; }
+  .how li { counter-increment: s; }
+  .how li::before {
+    content: counter(s);
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 2rem; height: 2rem; border-radius: 50%;
+    background: var(--accent); color: var(--accent-ink); font-weight: 800; margin-bottom: .6rem;
+  }
+  .how h3 { margin: 0 0 .25rem; font-size: 1.05rem; }
+  .how p { margin: 0; color: var(--muted); }
+  .contact-card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 1.75rem; }
+  .contact-card p { margin: 0 0 1.25rem; color: var(--muted); }
+  .contact-card .detail { margin-top: 1.25rem; font-size: .98rem; }
+  .contact-card .detail a { color: var(--accent); }
+  footer { padding: 2rem 0 3rem; color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line); }
+  .services > li.svc { display: grid; grid-template-columns: 170px 1fr; gap: 1.5rem 2rem; align-items: start; padding: 1.75rem 0; border-bottom: 1px solid var(--line); }
+  .services > li.svc:first-child { padding-top: 0; }
+  .ill { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: .6rem; }
+  .ill svg { display: block; width: 100%; height: auto; }
+  .ill .s { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .ill .f { fill: var(--card); stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+  .ill .a { fill: var(--accent); }
+  .ill .t { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .services > li.svc h3 { margin-bottom: .35rem; }
+  .inc { list-style: none; margin: .9rem 0 0; padding: 0; }
+  .inc li { position: relative; padding: .2rem 0 .2rem 1.5rem; color: var(--ink); font-size: .97rem; }
+  .inc li::before { content: ""; position: absolute; left: 0; top: .55rem; width: .65rem; height: .35rem; border-left: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: rotate(-45deg); }
+  .lead.small { font-size: 1.05rem; margin: 0; }
+  .faq details { border-bottom: 1px solid var(--line); padding: 1rem 0; }
+  .faq summary { cursor: pointer; font-weight: 600; font-size: 1.05rem; }
+  .faq details p { margin: .6rem 0 0; color: var(--muted); max-width: 60ch; }
+  @media (max-width: 640px) {
+    nav a:first-child { margin-left: 0; }
+    .services > li { grid-template-columns: 1fr; gap: .35rem; }
+    .services > li.svc { grid-template-columns: 1fr; }
+    .ill { max-width: 220px; }
+    .how { grid-template-columns: 1fr; }
+    .hero { padding: 3rem 0 2.5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
 </head>
 <body>
-  <h1>Hello, world 👋</h1>
-  <p>This is my first project on GitHub.</p>
-  <button onclick="document.getElementById('msg').textContent = 'It works!'">Click me</button>
-  <p id="msg"></p>
+<header>
+  <div class="wrap">
+    <span class="brand">Noah Freelance Hub</span>
+    <nav aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#process">How it works</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Get your website, registrations and compliance sorted.</h1>
+      <p class="lead">I build websites and handle FDA, FSVP, company and VAT registration, so you can focus on running your business.</p>
+      <div class="btns">
+        <a class="btn primary" href="https://wa.me/2349034060873?text=Hello%20Noah%2C%20I%20would%20like%20to%20ask%20about%20your%20services.">Message me on WhatsApp</a>
+        <a class="btn ghost" href="mailto:noahaladesofin@gmail.com">Send an email</a>
+      </div>
+    </div>
+
+    <section id="services">
+      <h2>Services</h2>
+      <ul class="services">
+        <li class="svc">
+          <div class="ill" aria-hidden="true"><svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg"><rect class="f" x="14" y="14" width="132" height="92" rx="8"/><path class="s" d="M14 34h132"/><circle class="a" cx="26" cy="24" r="3"/><circle class="a" cx="36" cy="24" r="3"/><circle class="a" cx="46" cy="24" r="3"/><rect class="a" x="26" y="46" width="62" height="10" rx="3"/><path class="s" d="M26 66h62M26 76h48"/><rect class="s" x="98" y="46" width="36" height="40" rx="4"/><path class="t" d="M104 76l9-12 7 8 6-6 5 10"/></svg></div>
+          <div>
+            <h3>Website design</h3>
+            <p>A clean, mobile-friendly website that presents your business clearly and makes it easy for customers to contact you.</p>
+            <ul class="inc"><li>Layout planned around your business and your customers</li><li>Looks good on phones, tablets and computers</li><li>Clear pages for services, about and contact</li><li>WhatsApp and email buttons so customers can reach you in one tap</li></ul>
+          </div>
+        </li>
+        <li class="svc">
+          <div class="ill" aria-hidden="true"><svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg"><rect class="f" x="14" y="14" width="132" height="92" rx="8"/><path class="s" d="M14 34h132M50 34v72"/><path class="s" d="M24 46h18M24 58h18M24 70h18"/><rect class="a" x="60" y="44" width="76" height="10" rx="3"/><path class="s" d="M60 64h76M60 74h60M60 84h40"/><circle class="a" cx="128" cy="94" r="10"/><path d="M123 90h2l2 7h7l2-5h-10" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div>
+            <h3>WordPress websites</h3>
+            <p>Business sites, blogs and online shops on WordPress that you can update yourself after launch.</p>
+            <ul class="inc"><li>Theme setup and customisation to match your brand</li><li>Pages, blog and an optional online shop</li><li>Basic speed and security setup</li><li>A short handover so you can edit content yourself</li></ul>
+          </div>
+        </li>
+        <li class="svc">
+          <div class="ill" aria-hidden="true"><svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg"><rect class="f" x="36" y="14" width="88" height="96" rx="8"/><rect class="a" x="62" y="8" width="36" height="14" rx="5"/><path class="t" d="M50 44l6 6 11-12M50 66l6 6 11-12M50 88l6 6 11-12"/><path class="s" d="M78 46h32M78 68h32M78 90h22"/></svg></div>
+          <div>
+            <h3>FDA registration and compliance</h3>
+            <p>Help with registering your food facility with the US FDA and keeping your records and filings in order.</p>
+            <ul class="inc"><li>Support with food facility registration</li><li>Help working out which requirements apply to your products</li><li>Guidance on items such as a US agent for foreign facilities</li><li>Help keeping your registration current, as it must be renewed every two years</li></ul>
+          </div>
+        </li>
+        <li class="svc">
+          <div class="ill" aria-hidden="true"><svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg"><circle class="f" cx="56" cy="58" r="38"/><ellipse class="s" cx="56" cy="58" rx="16" ry="38"/><path class="s" d="M18 58h76M24 38h64M24 78h64"/><rect class="f" x="88" y="62" width="52" height="42" rx="4"/><path class="s" d="M88 76h52M114 62v14"/><circle class="a" cx="130" cy="42" r="14"/><path d="M123 42l5 5 9-10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div>
+            <h3>FSVP compliance</h3>
+            <p>Support for US importers with their Foreign Supplier Verification Program requirements.</p>
+            <ul class="inc"><li>Guidance on whether FSVP applies to your imports</li><li>Help organising supplier verification records</li><li>Support documenting your hazard analysis and supplier evaluation</li><li>Clear checklists so nothing is missed</li></ul>
+          </div>
+        </li>
+        <li class="svc">
+          <div class="ill" aria-hidden="true"><svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg"><rect class="f" x="18" y="28" width="62" height="82" rx="4"/><path class="s" d="M10 110h78"/><rect class="a" x="30" y="42" width="12" height="12" rx="2"/><rect class="a" x="56" y="42" width="12" height="12" rx="2"/><rect class="s" x="30" y="64" width="12" height="12" rx="2"/><rect class="s" x="56" y="64" width="12" height="12" rx="2"/><rect class="s" x="44" y="88" width="12" height="22" rx="2"/><rect class="f" x="88" y="36" width="56" height="70" rx="5"/><path class="s" d="M98 52h36M98 62h36M98 72h22"/><circle class="a" cx="128" cy="92" r="9"/></svg></div>
+          <div>
+            <h3>Company registration</h3>
+            <p>Guidance and filing support to register your business and get it officially set up.</p>
+            <ul class="inc"><li>Help choosing a suitable business structure</li><li>Preparing and submitting your registration documents</li><li>Guidance on the steps to take after registration</li></ul>
+          </div>
+        </li>
+        <li class="svc">
+          <div class="ill" aria-hidden="true"><svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg"><path class="f" d="M42 12h76v92l-9-7-10 7-9-7-9 7-10-7-9 7-10-7-10 7z"/><path class="s" d="M56 32h48M56 44h48M56 56h30"/><circle class="a" cx="104" cy="82" r="18"/><path d="M96 90l16-16" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="97" cy="75" r="3" fill="#fff"/><circle cx="111" cy="89" r="3" fill="#fff"/></svg></div>
+          <div>
+            <h3>VAT registration</h3>
+            <p>Registering your business for VAT so you can invoice and file correctly.</p>
+            <ul class="inc"><li>Checking whether your business needs to register</li><li>Preparing and submitting your VAT application</li><li>Guidance on invoicing and filing basics</li></ul>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="clients">
+      <h2>Who I work with</h2>
+      <p class="lead small">I work with small businesses, startups and individuals who need a professional result without the stress of figuring out the process alone. That includes food exporters and importers dealing with US requirements, new businesses getting registered, and owners who need a website that works.</p>
+    </section>
+
+    <section id="process">
+      <h2>How it works</h2>
+      <ol class="how">
+        <li>
+          <h3>Tell me what you need</h3>
+          <p>Message me on WhatsApp or email with a short description of your project.</p>
+        </li>
+        <li>
+          <h3>Agree the scope</h3>
+          <p>I confirm what is involved, the timeline and the price before any work starts.</p>
+        </li>
+        <li>
+          <h3>I deliver</h3>
+          <p>I complete the work and walk you through the result.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section id="faq">
+      <h2>Common questions</h2>
+      <div class="faq">
+        <details><summary>How do we get started?</summary><p>Send me a message on WhatsApp or email with a short description of what you need. I will reply with questions and next steps.</p></details>
+        <details><summary>How long does a project take?</summary><p>It depends on the service and how quickly documents and information reach me. I give you an estimate before any work begins.</p></details>
+        <details><summary>What should I prepare?</summary><p>For websites, your business details, logo and any text or photos you have. For registrations and compliance, I will send you a list of the documents needed.</p></details>
+        <details><summary>Can we work remotely?</summary><p>Yes. Most work is done online through WhatsApp, email and calls.</p></details>
+        <details><summary>Do you offer support after delivery?</summary><p>Yes. Ask me about follow-up support when we agree the scope of your project.</p></details>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="contact-card">
+        <p>Tell me what you are working on and I will reply with the next steps.</p>
+        <div class="btns">
+          <a class="btn primary" href="https://wa.me/2349034060873?text=Hello%20Noah%2C%20I%20would%20like%20to%20ask%20about%20your%20services.">WhatsApp +234 903 406 0873</a>
+          <a class="btn ghost" href="mailto:noahaladesofin@gmail.com">noahaladesofin@gmail.com</a>
+        </div>
+        <p class="detail">Prefer GitHub? See my projects at <a href="https://github.com/NoahJosiah10">github.com/NoahJosiah10</a>.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">&copy; 2026 Noah Freelance Hub</div>
+</footer>
 </body>
 </html>
